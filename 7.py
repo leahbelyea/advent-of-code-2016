@@ -10,12 +10,13 @@ with open('input/7.txt', 'r') as f:
 #     'ioxxoj[asdfgh]zxcvbn'
 # ]
 
-input = [
-    'aba[bab]xyz',
-    'xyx[xyx]xyx',
-    'aaaxyx[kek]eke',
-    'zazbz[bzb]cdb'
-]
+# input = [
+#     'aba[bab]xyz',
+#     'xyx[xyx]xyx',
+#     'aaaxyx[kek]eke',
+#     'zazbz[bzb]cdb',
+#     'wef'
+# ]
 
 # Part 1
 
@@ -53,33 +54,19 @@ supportingIps = []
 
 for ip in input:
     ipSupernet = re.sub('\[[a-z]*\]', '', ip)
+    results = re.finditer('(?=([a-z])([a-z])\\1)', ipSupernet)
+    abaMatches = []
+    for match in results:
+        if match.group(1) and match.group(2):
+            abaMatches.append((match.group(1), match.group(2)))
 
-    abaMatches = re.findall('([a-z])([a-z])\\1', ipSupernet) or []
-    abaValid = False
     abas = []
     for aba in abaMatches:
         if aba[0] != aba[1]:
-            abaValid = True
             if aba not in abas: abas.append(aba)
 
-    hasAba = len(abaMatches) > 0 and abaValid
-    print ip
-    print abas
-    print '\n\n'
+    for aba in abas:
+        bab = re.findall('\[[a-z]*[%s][%s][%s][a-z]*\]' % (aba[1], aba[0], aba[1]), ip) or []
+        if bab: supportingIps.append(ip)
 
-    #
-    # abbaInBracketsMatches = re.findall('\[[a-z]*([a-z])([a-z])\\1[a-z]*\]', ip) or []
-    #
-    # abbaInBracketsValid = False
-    # for abba in abbaInBracketsMatches:
-    #     if abba[0] != abba[1]:
-    #         abbaInBracketsValid = True
-    #
-    # hasAbbaInBrackets = len(abbaInBracketsMatches) > 0 and abbaInBracketsValid
-    #
-    # supportsTls = hasAbba and not hasAbbaInBrackets
-    #
-    # if supportsTls:
-    #     supportingIps.append(ip)
-
-# print len(supportingIps)
+print len(supportingIps)
