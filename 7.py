@@ -54,11 +54,9 @@ supportingIps = []
 
 for ip in input:
     ipSupernet = re.sub('\[[a-z]*\]', '', ip)
-    results = re.finditer('(?=([a-z])([a-z])\\1)', ipSupernet)
-    abaMatches = []
-    for match in results:
-        if match.group(1) and match.group(2):
-            abaMatches.append((match.group(1), match.group(2)))
+    abaMatches = re.findall('(?=([a-z])([a-z])\\1)', ipSupernet) or []
+
+    print ip
 
     abas = []
     for aba in abaMatches:
