@@ -14,8 +14,7 @@ with open('input/7.txt', 'r') as f:
 #     'aba[bab]xyz',
 #     'xyx[xyx]xyx',
 #     'aaaxyx[kek]eke',
-#     'zazbz[bzb]cdb',
-#     'wef'
+#     'zazbz[bzb]cdb'
 # ]
 
 # Part 1
@@ -56,8 +55,6 @@ for ip in input:
     ipSupernet = re.sub('\[[a-z]*\]', '', ip)
     abaMatches = re.findall('(?=([a-z])([a-z])\\1)', ipSupernet) or []
 
-    print ip
-
     abas = []
     for aba in abaMatches:
         if aba[0] != aba[1]:
@@ -65,6 +62,6 @@ for ip in input:
 
     for aba in abas:
         bab = re.findall('\[[a-z]*[%s][%s][%s][a-z]*\]' % (aba[1], aba[0], aba[1]), ip) or []
-        if bab: supportingIps.append(ip)
+        if bab and ip not in supportingIps: supportingIps.append(ip)
 
 print len(supportingIps)
