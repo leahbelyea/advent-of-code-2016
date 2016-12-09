@@ -10,10 +10,12 @@ with open('input/9.txt', 'r') as f:
 # input = '(6x1)(1x3)A'
 # input = 'X(8x2)(3x3)ABCY'
 
+
+# Part 1 WRONG
+
 decompressedInput = input
 ignoreCount = 0
 markerRegex = '\([0-9]+x[0-9]+\)'
-print input
 
 while True:
     matches = re.findall(markerRegex, decompressedInput)
@@ -30,5 +32,38 @@ while True:
     else:
         break
 
-print decompressedInput
+print len(decompressedInput)
+
+
+# Part 1 RIGHT
+
+decompressedInput = ''
+currentLocation = 0
+
+while currentLocation < len(input):
+    if input[currentLocation] == '(':
+        currentLocation += 1
+        letterCount = ''
+        repeatCount = ''
+        while input[currentLocation] != 'x':
+            letterCount += input[currentLocation]
+            currentLocation += 1
+        letterCount = int(letterCount)
+        currentLocation += 1
+
+        while input[currentLocation] != ')':
+            repeatCount += input[currentLocation]
+            currentLocation += 1
+        repeatCount = int(repeatCount)
+        currentLocation += 1
+
+        repeatSeq = input[currentLocation:currentLocation + letterCount]
+        currentLocation += letterCount
+
+        decompressedInput += repeatSeq * repeatCount
+
+    else:
+        decompressedInput += input[currentLocation]
+        currentLocation += 1
+
 print len(decompressedInput)
