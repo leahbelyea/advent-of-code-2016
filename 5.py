@@ -32,9 +32,7 @@ while True:
     if hash[0:5] == '00000':
         position = int(hash[5], 16)
         if position > 7: continue
-        print hash
         if password[position] == '-': password[position] = hash[6]
-        print password
 
     if '-' not in password:
         break
