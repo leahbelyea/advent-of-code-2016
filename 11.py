@@ -276,7 +276,7 @@ def doStuff():
         [],
         [],
         [],
-        [Item('thulium', 'generator'), Item('thulium', 'microchip'), Item('plutonium', 'generator'), Item('strontium', 'generator'), Item('plutonium', 'microchip'), Item('strontium', 'microchip'), Item('promethium', 'generator'), Item('promethium', 'microchip'), Item('ruthenium', 'generator'), Item('ruthenium', 'microchip')]
+        [Item('elerium', 'generator'), Item('elerium', 'microchip'), Item('dilithium', 'generator'), Item('dilithium', 'microchip'), Item('thulium', 'generator'), Item('thulium', 'microchip'), Item('plutonium', 'generator'), Item('strontium', 'generator'), Item('plutonium', 'microchip'), Item('strontium', 'microchip'), Item('promethium', 'generator'), Item('promethium', 'microchip'), Item('ruthenium', 'generator'), Item('ruthenium', 'microchip')]
     ], 3)
 
     Facility.facilityStates.append(startFacility)
@@ -306,7 +306,7 @@ def doStuff():
 
 
     path = findFewestSteps(Facility.facilityStates, startFacility, endFacility)
-    print len(path) - 1
+    if path: print len(path) - 1
 
 #
 # cProfile.run('doStuff()')
